@@ -1,0 +1,76 @@
+AI Career SaaS Product Requirements (MVP)
+
+
+-Core Features
+
+1. Career Personality Assessment
+Interactive questionnaire (similar to MBTI 16 Personalities)
+5-10 carefully crafted questions about work preferences, interests, skills
+Real-time progress tracking
+Multiple choice, Likert scale, and scenario-based questions
+Immediate results with career personality type and basic recommendations
+
+2. User Authentication & Profiles
+Guest mode for assessment (no registration required)
+(Optional later) account creation for personalized recommendations
+(Optional later)Profile management (basic info, preferences)
+Resume upload and parsing capabilities
+
+3. AI Career Chatbot
+Contextual career advice based on assessment results
+Resume analysis integration
+Personalized career roadmaps and suggestions
+Industry-specific guidance
+Skill gap analysis and recommendations
+
+
+-User Journey
+
+Discovery: User lands on homepage, sees assessment offer
+Assessment: Takes 5-10 minute personality/career quiz
+Results: Gets career personality type and basic insights
+Engagement: Option to create account for deeper insights
+Personalization: Upload resume, get tailored career advice via chatbot
+(optional later)Retention: Regular insights, career tracking, new opportunities
+
+
+-Technical Architecture & Stack
+
+Frontend
+HTML + CSS + JavaScript
+Single-page application with multiple views
+CSS Grid/Flexbox for layout
+JavaScript modules for organization
+Styling: Bootstrap 5 (pre-built components, responsive)
+Forms: Simple HTML forms with JavaScript validation
+Deployment: Static hosting (GitHub Pages, Netlify) - just drag & drop
+
+Backend
+Python Flask
+Database: SQLite (file-based, no server setup)
+Authentication: Simple session-based auth
+File Upload: Local storage initially
+Deployment: Render (one-click deploy)
+
+Assessment Engine
+Simple Python dictionaries for questions and scoring
+Basic rule-based personality matching
+JSON responses for results
+
+AI/ML Components
+Chatbot:
+OpenAI API
+Framework: LangChain
+RAG: Chroma vector database for career knowledge
+Context Management: User profile + assessment results + resume data
+
+Infrastructure (Minimal)
+Development:
+Local development: Everything runs locally
+Version Control: Git + GitHub
+Environment: Python venv
+Deployment:
+Frontend: GitHub Pages (free, automatic)
+Backend: Render (free tier, connects to GitHub)
+Database: SQLite, Chroma (included with backend)
+File Storage: Local filesystem initially
