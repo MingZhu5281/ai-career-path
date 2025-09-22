@@ -7,7 +7,7 @@ from datetime import datetime
 from assessment_engine import AssessmentEngine
 from chatbot import CareerChatbot
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../frontend', static_url_path='')
 CORS(app)  # Enable CORS for frontend communication
 
 # Initialize components
@@ -50,7 +50,7 @@ def init_db():
 @app.route('/')
 def index():
     """Serve the main page"""
-    return render_template('index.html')
+    return app.send_static_file('index.html')
 
 @app.route('/api/questions', methods=['GET'])
 def get_questions():

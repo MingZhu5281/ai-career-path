@@ -9,7 +9,7 @@ let assessmentResults = {};
 let chatHistory = [];
 
 // API Configuration
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = '/api';
 
 // Utility Functions
 function generateSessionId() {
@@ -32,11 +32,45 @@ function showLoading(text = 'Loading...') {
     document.getElementById('loadingText').textContent = text;
     const modal = new bootstrap.Modal(document.getElementById('loadingModal'));
     modal.show();
+    
+    // Show cancel button after 5 seconds
+    setTimeout(() => {
+        const cancelBtn = document.getElementById('cancelLoading');
+        if (cancelBtn) cancelBtn.style.display = 'inline-block';
+    }, 5000);
 }
 
 function hideLoading() {
-    const modal = bootstrap.Modal.getInstance(document.getElementById('loadingModal'));
-    if (modal) modal.hide();
+    console.log("Attempting to hide loading modal...");
+    
+    // Try Bootstrap modal first
+    const modal = bootstrap.Modal.getInstance(document.getElementById("loadingModal"));
+    if (modal) {
+        console.log("Hiding with Bootstrap modal instance");
+        modal.hide();
+    }
+    
+    // Force hide the modal directly
+    const modalElement = document.getElementById("loadingModal");
+    if (modalElement) {
+        console.log("Force hiding modal element");
+        modalElement.style.display = "none";
+        modalElement.classList.remove("show");
+        modalElement.classList.remove("modal", "fade", "show");
+        
+        // Remove backdrop
+        const backdrop = document.querySelector(".modal-backdrop");
+        if (backdrop) {
+            backdrop.remove();
+        }
+        
+        // Remove modal-open class from body
+        document.body.classList.remove("modal-open");
+        document.body.style.overflow = "";
+        document.body.style.paddingRight = "";
+    }
+    
+    console.log("Loading modal hidden");
 }
 
 // Assessment Functions
@@ -44,11 +78,34 @@ async function startAssessment() {
     try {
         showLoading('Loading assessment questions...');
         
-        // Fetch questions from backend
-        const response = await fetch(`${API_BASE_URL}/questions`);
-        if (!response.ok) throw new Error('Failed to load questions');
+        console.log('Fetching questions from:', `${API_BASE_URL}/questions`);
         
-        questions = await response.json();
+        // Add timeout fallback
+        const timeoutPromise = new Promise((_, reject) => 
+            setTimeout(() => reject(new Error('Request timeout')), 10000)
+        );
+        
+        // Fetch questions from backend
+        const response = await Promise.race([
+            fetch(`${API_BASE_URL}/questions`),
+            timeoutPromise
+        ]);
+        
+        console.log('Response status:', response.status);
+        console.log('Response headers:', response.headers);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        console.log('Questions received:', data);
+        
+        if (!data || data.length === 0) {
+            throw new Error('No questions received from server');
+        }
+        
+        questions = data;
         answers = [];
         currentQuestion = 0;
         
@@ -58,8 +115,8 @@ async function startAssessment() {
         
     } catch (error) {
         hideLoading();
+        console.error('Assessment error details:', error);
         alert('Error loading assessment: ' + error.message);
-        console.error('Assessment error:', error);
     }
 }
 
