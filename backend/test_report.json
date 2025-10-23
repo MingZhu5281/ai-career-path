@@ -1,0 +1,44 @@
+{
+  "timestamp": "2025-10-23T11:39:42.794643",
+  "api_key_configured": true,
+  "api_connectivity": true,
+  "personality_responses": true,
+  "fallback_behavior": true,
+  "career_roadmap": true,
+  "comprehensive_tests": {
+    "passed": 5,
+    "total": 5
+  },
+  "detailed_results": [
+    {
+      "scenario": "Basic Career Question",
+      "status": "passed",
+      "response_length": 1152,
+      "response_preview": "As an Analyst with a computer science degree, you possess strong analytical skills, a knack for problem-solving, and a detail-oriented mindset. Given these strengths, consider pursuing roles in data a"
+    },
+    {
+      "scenario": "Leadership Career Advice",
+      "status": "passed",
+      "response_length": 1214,
+      "response_preview": "To enhance your leadership skills as a project manager, consider focusing on developing your emotional intelligence. This involves improving your self-awareness, empathy, and communication abilities. "
+    },
+    {
+      "scenario": "Collaboration Career Question",
+      "status": "passed",
+      "response_length": 1117,
+      "response_preview": "As a Collaborator, your strength lies in your ability to build relationships and work effectively in team environments. Given your background in customer service, you might consider roles that leverag"
+    },
+    {
+      "scenario": "Technical Career Advice",
+      "status": "passed",
+      "response_length": 1176,
+      "response_preview": "Absolutely, learning Python is a crucial step for transitioning into data science, especially given your background as a marketing analyst. Python is one of the most widely used programming languages "
+    },
+    {
+      "scenario": "Career Change Question",
+      "status": "passed",
+      "response_length": 1078,
+      "response_preview": "Transitioning from teaching to tech is a rewarding journey, especially as a Collaborator, where your strong interpersonal skills and ability to work in teams will be invaluable. Start by exploring rol"
+    }
+  ]
+}

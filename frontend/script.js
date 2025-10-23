@@ -435,6 +435,36 @@ function goHome() {
     showPage('homePage');
 }
 
+// Contact Functions
+function showContactModal() {
+    const modal = new bootstrap.Modal(document.getElementById('contactModal'));
+    modal.show();
+}
+
+function handleContactForm(event) {
+    event.preventDefault();
+    
+    const formData = {
+        name: document.getElementById('contactName').value,
+        email: document.getElementById('contactEmail').value,
+        subject: document.getElementById('contactSubject').value,
+        message: document.getElementById('contactMessage').value
+    };
+    
+    // For now, just show a success message
+    // In a real implementation, you would send this to your backend
+    alert('Thank you for your message! We\'ll get back to you soon.');
+    
+    // Reset form
+    document.getElementById('contactForm').reset();
+    
+    // Close modal
+    const modal = bootstrap.Modal.getInstance(document.getElementById('contactModal'));
+    modal.hide();
+    
+    console.log('Contact form submitted:', formData);
+}
+
 // Initialize application
 document.addEventListener('DOMContentLoaded', function() {
     // Show home page by default
@@ -448,6 +478,12 @@ document.addEventListener('DOMContentLoaded', function() {
     tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
+    
+    // Initialize contact form
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', handleContactForm);
+    }
 });
 
 // Error handling for unhandled promises

@@ -5,34 +5,30 @@ Provides personalized career advice based on assessment results and resume data
 
 import os
 from dotenv import load_dotenv
-import openai
-from langchain.llms import OpenAI
-from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
 
 # Load environment variables
 load_dotenv()
 
 class CareerChatbot:
     def __init__(self):
-        # Initialize OpenAI API
-        openai.api_key = os.getenv('OPENAI_API_KEY')
-        
         # Initialize LangChain components (only if API key is available)
-        if os.getenv('OPENAI_API_KEY'):
-            self.llm = OpenAI(temperature=0.7, max_tokens=500)
+        api_key = os.getenv('OPENAI_API_KEY')
+        if api_key:
+            self.llm = ChatOpenAI(
+                model="gpt-4o-mini",  # Modern chat model
+                temperature=0.5,
+                max_tokens=500,
+                openai_api_key=api_key
+            )
         else:
             self.llm = None
         
         # Create prompt template for career advice
-        self.career_prompt = PromptTemplate(
-            input_variables=["personality_type", "resume_data", "user_message"],
-            template="""
-            You are a professional career counselor with expertise in career development and personality assessment.
-            
-            User's Career Personality Type: {personality_type}
-            Resume/Background Information: {resume_data}
-            User's Question: {user_message}
+        self.career_prompt = ChatPromptTemplate.from_messages([
+            ("system", """You are a professional career counselor with expertise in career development and personality assessment.
             
             Based on the user's personality type and background, provide personalized career advice that is:
             1. Specific and actionable
@@ -40,13 +36,15 @@ class CareerChatbot:
             3. Realistic and practical
             4. Encouraging and supportive
             
-            Keep your response concise (2-3 paragraphs) and focus on the most relevant advice for their situation.
-            """
-        )
+            Keep your response concise (2-3 paragraphs) and focus on the most relevant advice for their situation."""),
+            ("human", """User's Career Personality Type: {personality_type}
+            Resume/Background Information: {resume_data}
+            User's Question: {user_message}""")
+        ])
         
         # Create LLM chain (only if LLM is available)
         if self.llm:
-            self.career_chain = LLMChain(llm=self.llm, prompt=self.career_prompt)
+            self.career_chain = self.career_prompt | self.llm | StrOutputParser()
         else:
             self.career_chain = None
     
@@ -63,19 +61,16 @@ class CareerChatbot:
             str: AI-generated career advice
         """
         try:
-            # If no OpenAI API key is set, return a default response
-            if not os.getenv('OPENAI_API_KEY'):
+            # If no OpenAI API key is set or LLM is not available, return a default response
+            if not self.career_chain:
                 return self._get_default_response(message, personality_type)
             
             # Generate response using LangChain
-            if self.career_chain:
-                response = self.career_chain.run(
-                    personality_type=personality_type or "General",
-                    resume_data=resume_data or "No resume information provided",
-                    user_message=message
-                )
-            else:
-                response = self._get_default_response(message, personality_type)
+            response = self.career_chain.invoke({
+                "personality_type": personality_type or "General",
+                "resume_data": resume_data or "No resume information provided",
+                "user_message": message
+            })
             
             return response.strip()
             
