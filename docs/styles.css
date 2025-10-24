@@ -233,3 +233,58 @@ body {
 .chat-messages::-webkit-scrollbar-thumb:hover {
     background: #a8a8a8;
 }
+
+/* Contact Modal Styles */
+.contact-info {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.contact-info .d-flex {
+    color: #495057;
+}
+
+.contact-info i {
+    color: #007bff;
+    font-size: 1.1rem;
+}
+
+#contactModal .modal-dialog {
+    max-width: 800px;
+}
+
+#contactModal .form-control,
+#contactModal .form-select {
+    border-radius: 6px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+#contactModal .form-control:focus,
+#contactModal .form-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Button Group Styles */
+.d-flex.gap-3 .btn {
+    min-width: 200px;
+}
+
+@media (max-width: 768px) {
+    .d-flex.gap-3 {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .d-flex.gap-3 .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    #contactModal .modal-dialog {
+        margin: 1rem;
+    }
+}
