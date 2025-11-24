@@ -5,6 +5,11 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Page Container */
+.page {
+    position: relative;
+}
+
 /* Navigation */
 .navbar-brand {
     font-weight: bold;
@@ -154,6 +159,31 @@ body {
     padding-top: 1rem;
 }
 
+/* Sample Question Styles */
+.sample-question-section {
+    padding: 0.5rem 0;
+}
+
+.sample-question-btn {
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.sample-question-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.sample-question-btn i {
+    margin-right: 0.25rem;
+}
+
 /* Loading Spinner */
 .spinner-border {
     width: 3rem;
@@ -273,6 +303,193 @@ body {
     min-width: 200px;
 }
 
+/* Profile Page Styles */
+.profile-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.profile-container .form-control:read-only {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+.profile-container .list-group-item {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.profile-container .badge {
+    font-size: 0.75rem;
+    padding: 0.35em 0.65em;
+}
+
+/* Auth Modal Styles */
+#loginModal .modal-dialog,
+#registerModal .modal-dialog {
+    max-width: 500px;
+}
+
+#loginModal .form-control,
+#registerModal .form-control {
+    border-radius: 6px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+#loginModal .form-control:focus,
+#registerModal .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+#loginModal .form-check-input,
+#registerModal .form-check-input {
+    margin-top: 0.25rem;
+}
+
+#loginModal .form-check-label,
+#registerModal .form-check-label {
+    margin-left: 0.5rem;
+}
+
+#loginModal a,
+#registerModal a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#loginModal a:hover,
+#registerModal a:hover {
+    text-decoration: underline;
+}
+
+/* Navigation Styles */
+.navbar-nav .nav-link {
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Cat Icon Styles */
+.cat-icon {
+    position: absolute;
+    top: 80px;
+    right: 20px;
+    font-size: 1.5rem;
+    cursor: default;
+    z-index: 10;
+    transition: transform 0.3s ease;
+}
+
+.cat-icon:hover {
+    transform: scale(1.1);
+}
+
+.cat-face {
+    display: inline-block;
+    user-select: none;
+    transition: all 0.3s ease;
+}
+
+.cat-icon:hover .cat-face {
+    transform: scale(1.1);
+}
+
+.cat-dialog {
+    position: absolute;
+    top: -50px;
+    right: 0;
+    background-color: #333;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.cat-dialog::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    right: 20px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #333;
+}
+
+.cat-icon:hover .cat-dialog {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .cat-icon {
+        top: 70px;
+        right: 15px;
+        font-size: 1.2rem;
+    }
+    
+    .cat-dialog {
+        font-size: 0.75rem;
+        padding: 6px 10px;
+        top: -45px;
+    }
+}
+
+/* Resume List Styles */
+.resume-list-item {
+    border-left: 4px solid #007bff;
+    padding-left: 1rem;
+}
+
+/* Share Modal Styles */
+#shareModal .modal-dialog {
+    max-width: 600px;
+}
+
+.share-buttons .share-btn {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.share-buttons .share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.share-buttons .share-btn i {
+    font-size: 1.2rem;
+}
+
+#shareLinkInput {
+    font-size: 0.9rem;
+    cursor: text;
+}
+
+#shareModal .input-group button {
+    min-width: 50px;
+}
+
 @media (max-width: 768px) {
     .d-flex.gap-3 {
         flex-direction: column;
@@ -286,5 +503,23 @@ body {
     
     #contactModal .modal-dialog {
         margin: 1rem;
+    }
+    
+    .profile-container {
+        padding: 1rem;
+    }
+    
+    #loginModal .modal-dialog,
+    #registerModal .modal-dialog {
+        margin: 1rem;
+    }
+    
+    #shareModal .modal-dialog {
+        margin: 1rem;
+    }
+    
+    .share-buttons .share-btn {
+        height: 45px;
+        font-size: 0.9rem;
     }
 }
