@@ -364,5 +364,10 @@ if __name__ == '__main__':
     # Initialize database
     init_db()
     
+    # Get port from environment variable (Railway provides this) or default to 5000
+    port = int(os.getenv('PORT', 5000))
+    # Disable debug mode in production (Railway sets RAILWAY_ENVIRONMENT)
+    debug = os.getenv('RAILWAY_ENVIRONMENT') != 'production'
+    
     # Run the app
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=debug, host='0.0.0.0', port=port)
